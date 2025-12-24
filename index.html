@@ -1,347 +1,226 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Next Connection Awaits</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Connections | Exclusive Access</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff0050;
+            --secondary: #6e00ff;
+            --bg: #0a0a0a;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text: #ffffff;
+        }
 
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G0BVPQ1ETG"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-G0BVPQ1ETG');
-  </script>
-  
-  <style>
-    /* Reset e Configurações Globais */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html, body {
-      height: 100%;
-      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-      background-color: #0c0c14; /* Cor de fallback se a imagem não carregar */
-      color: #e0e0e0;
-      overflow: hidden; /* Mantém o fundo fixo e sem barras de rolagem desnecessárias */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    /* Imagem de Fundo - NOVO */
-    body {
-      background-image: url('https://raw.githubusercontent.com/aprivateinvite/MeetRealFun/refs/heads/main/Fotos/Img02.jpeg'); /* <<<< SUBSTITUA ESTA URL PELA SUA IMAGEM! */
-      background-size: cover; /* Garante que a imagem cubra toda a área */
-      background-position: center center; /* Centraliza a imagem */
-      background-repeat: no-repeat; /* Evita repetição da imagem */
-      background-attachment: fixed; /* Fixa a imagem no fundo enquanto o conteúdo rola (se houvesse) */
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top right, #1a0a1f, #0a0a0a);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-    /* Overlay Escuro para Melhorar o Contraste do Texto - NOVO */
-    body::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.6); /* Camada escura semitransparente (60% de opacidade) */
-      z-index: 0; /* Fica abaixo do conteúdo, mas acima da imagem de fundo */
-    }
+        .container {
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+            text-align: center;
+        }
 
-    /* Canvas para o fundo animado (opcional, pode ser removido se a imagem for suficiente) */
-    /* Mantenho para caso você queira os dois efeitos combinados ou remova a imagem */
-    #particle-canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1; /* Colocado acima do overlay para as partículas serem visíveis sobre ele */
-      opacity: 0.3; /* Ajustei a opacidade para não competir com a imagem */
-    }
+        /* Glassmorphism Card */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 30px 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
 
+        .profile-header img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            padding: 3px;
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(255, 0, 80, 0.3);
+            object-fit: cover;
+        }
 
-    /* Container do conteúdo principal */
-    .content-wrapper {
-      position: relative;
-      z-index: 2; /* Garante que o conteúdo fique acima do canvas e do overlay */
-      text-align: center;
-      padding: 20px;
-      animation: fadeIn 1.5s ease-in-out;
-      max-width: 90%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-    }
+        h1 { font-size: 1.8rem; margin-bottom: 10px; font-weight: 700; letter-spacing: -1px; }
+        p { color: #ccc; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+        /* Quiz Steps */
+        .step { display: none; }
+        .step.active { display: block; animation: fadeIn 0.5s ease; }
 
-    /* Título principal */
-    h1 {
-      font-size: 48px;
-      font-weight: 700;
-      color: #ff007f;
-      text-shadow: 0 0 15px rgba(255, 0, 127, 0.7);
-      margin-bottom: 0;
-    }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    /* Frases rotativas */
-    .phrase {
-      font-size: 22px;
-      font-weight: 300;
-      margin-bottom: 0;
-      min-height: 60px;
-      line-height: 1.5;
-      color: #c5c5c5;
-    }
+        .btn-option {
+            display: block;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+            cursor: pointer;
+            font-size: 1rem;
+        }
 
-    /* Seções de contagem */
-    .count-section {
-        background-color: rgba(0, 0, 0, 0.6); /* Ajustei o alpha para 0.6 para mais contraste */
-        border-radius: 10px;
-        padding: 15px 20px;
-        box-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
-        border: 1px solid rgba(255, 0, 127, 0.5);
-        width: fit-content;
-        max-width: 95%;
-    }
-    .count-section p {
-        font-size: 18px;
-        font-weight: bold;
-        color: #fff;
-        margin: 0;
-        line-height: 1.4;
-    }
-    .count-number {
-        color: #ff007f;
-        font-size: 28px;
-        font-weight: 900;
-        text-shadow: 0 0 8px rgba(255, 0, 127, 0.8);
-    }
-    .count-text {
-        font-size: 16px;
-        color: #ddd;
-    }
+        .btn-option:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: scale(1.02);
+        }
 
-    /* Botão de Ação (Call to Action) */
-    .cta-button {
-      background: #ff007f;
-      color: #fff;
-      font-size: 24px;
-      font-weight: bold;
-      text-decoration: none;
-      padding: 20px 45px;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 25px rgba(255, 0, 127, 0.5), inset 0 0 12px rgba(255, 255, 255, 0.2);
-      animation: pulse 2s infinite;
-      white-space: nowrap;
-    }
-    .cta-button:hover {
-      transform: scale(1.08);
-      box-shadow: 0 0 45px rgba(255, 0, 127, 0.9), inset 0 0 18px rgba(255, 255, 255, 0.4);
-    }
+        /* Final Button */
+        .btn-final {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            box-shadow: 0 10px 20px rgba(255, 0, 80, 0.3);
+            margin-top: 15px;
+        }
 
-    @keyframes pulse {
-        0% { transform: scale(1); box-shadow: 0 0 25px rgba(255, 0, 127, 0.5); }
-        50% { transform: scale(1.03); box-shadow: 0 0 40px rgba(255, 0, 127, 0.8); }
-        100% { transform: scale(1); box-shadow: 0 0 25px rgba(255, 0, 127, 0.5); }
-    }
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .progress-bar {
+            width: 33%;
+            height: 100%;
+            background: var(--primary);
+            border-radius: 10px;
+            transition: 0.4s;
+        }
 
-    /* Ícones de features */
-    .features {
-      margin-top: 0;
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      color: #666;
-    }
-    .feature-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      color: #aaa;
-    }
+        /* Loading Spinner */
+        .loader {
+            border: 4px solid rgba(255,255,255,0.1);
+            border-left-color: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Responsividade */
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 38px;
-      }
-      .phrase {
-        font-size: 20px;
-        min-height: 50px;
-      }
-      .count-section p {
-          font-size: 16px;
-      }
-      .count-number {
-          font-size: 24px;
-      }
-      .cta-button {
-        font-size: 20px;
-        padding: 18px 40px;
-      }
-      .features {
-          flex-wrap: wrap;
-          gap: 15px;
-      }
-    }
-  </style>
+        footer {
+            margin-top: 30px;
+            font-size: 0.7rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .online-now {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: #4caf50;
+            margin-bottom: 15px;
+        }
+        .dot { width: 8px; height: 8px; background: #4caf50; border-radius: 50%; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+    </style>
 </head>
 <body>
 
-  <canvas id="particle-canvas"></canvas>
+    <div class="container">
+        <div class="card">
+            <div class="profile-header">
+                <!-- Replace 'perfil.jpeg' with your image if available -->
+                <img src="https://github.com/aprivateinvite/OffLimitsFun/blob/main/perfil.jpeg?raw=true" alt="VIP Access">
+                <div class="online-now">
+                    <span class="dot"></span> 1,248 users online now
+                </div>
+            </div>
 
-  <div class="content-wrapper">
-    <h1>Your Next Connection Awaits!</h1>
-    <p id="phrase" class="phrase"></p>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress"></div>
+            </div>
 
-    <div class="count-section">
-        <p><span id="girls-count" class="count-number">3000+</span> <span class="count-text">women active in your area!</span></p>
+            <!-- Step 1: Age Gate -->
+            <div class="step active" id="step1">
+                <h1>Are you at least 18?</h1>
+                <p>This platform contains adult content and real profiles. Please confirm your age to proceed.</p>
+                <button class="btn-option" onclick="nextStep(2, '66%')">Yes, I am 18+</button>
+                <button class="btn-option" onclick="alert('Sorry, you must be 18 or older to enter.')">No</button>
+            </div>
+
+            <!-- Step 2: Intent -->
+            <div class="step" id="step2">
+                <h1>What are you looking for?</h1>
+                <p>Customize your experience so we can find the best matches for you.</p>
+                <button class="btn-option" onclick="nextStep(3, '100%')">Casual Hookups</button>
+                <button class="btn-option" onclick="nextStep(3, '100%')">Serious Dating</button>
+                <button class="btn-option" onclick="nextStep(3, '100%')">Private Video Chat</button>
+            </div>
+
+            <!-- Step 3: Simulation -->
+            <div class="step" id="step3">
+                <h1>Analyzing Profiles...</h1>
+                <p>We are checking for available members in your area.</p>
+                <div class="loader"></div>
+                <div id="status-text" style="font-size: 0.8rem; color: var(--primary); font-weight: bold;">Checking database...</div>
+            </div>
+
+            <!-- Step 4: Final Call to Action -->
+            <div class="step" id="step4">
+                <h1 style="color: #4caf50;">Access Granted!</h1>
+                <p>We found <b>14 active profiles</b> matching your criteria. Complete your free registration to see photos and start chatting.</p>
+                <a href="https://bggcgce.datesoffers.com/s/59cd6ef16fd92" class="btn-option btn-final">VIEW PROFILES & JOIN NOW</a>
+                <span style="font-size: 0.7rem; color: #888;">Fast registration: takes less than 30 seconds.</span>
+            </div>
+        </div>
+
+        <footer>
+            Safe & Encrypted Environment &copy; 2025
+        </footer>
     </div>
 
-    <div class="count-section">
-        <p><span id="nearby-count" class="count-number">0</span> <span class="count-text">people online and ready to chat NOW!</span></p>
-    </div>
+    <script>
+        function nextStep(step, progressWidth) {
+            // Hide all steps
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            
+            // Show current step
+            document.getElementById('step' + step).classList.add('active');
+            
+            // Update progress bar
+            document.getElementById('progress').style.width = progressWidth;
 
-    <a href="https://bggcgce.datesoffers.com/s/59cd6ef16fd92" class="cta-button">Join Now!</a>
-
-    <div class="features">
-      <div class="feature-item">💬 Chat</div>
-      <div class="feature-item">❤️ Dates</div>
-      <div class="feature-item">⚡ Connect</div>
-    </div>
-  </div>
-
-  <script>
-    // --- Rotating phrases functionality ---
-    const phrases = [
-      "It all starts with a simple 'hey'.",
-      "Talk all night. Stay for breakfast.",
-      "Less routine. More adventure. Tonight.",
-      "Find someone who truly gets you.",
-      "The connection you didn't know you needed.",
-      "Chat. Flirt. Meet. Your way."
-    ];
-
-    let phraseIndex = 0;
-    const phraseElement = document.getElementById("phrase");
-
-    function rotatePhrase() {
-      if (phraseElement) {
-        phraseElement.innerHTML = phrases[phraseIndex];
-        phraseIndex = (phraseIndex + 1) % phrases.length;
-      }
-    }
-    rotatePhrase();
-    setInterval(rotatePhrase, 5000);
-    // --- End of rotating phrases functionality ---
-
-    // --- Dynamic Counters (New functionality) ---
-    const nearbyCountElement = document.getElementById('nearby-count');
-    let currentNearbyCount = 250; // Initial value for the nearby people counter
-
-    function updateNearbyCount() {
-        let change = Math.floor(Math.random() * 10) - 4;
-        currentNearbyCount = Math.max(200, currentNearbyCount + change);
-        currentNearbyCount = Math.min(350, currentNearbyCount);
-        nearbyCountElement.textContent = currentNearbyCount;
-    }
-
-    setInterval(updateNearbyCount, 1500);
-
-    // --- Animated background script ---
-    const canvas = document.getElementById('particle-canvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particlesArray;
-
-    const mouse = {
-      x: null,
-      y: null,
-      radius: (canvas.height / 120) * (canvas.width / 120)
-    };
-
-    window.addEventListener('mousemove', function(event) {
-      mouse.x = event.x;
-      mouse.y = event.y;
-    });
-
-    class Particle {
-      constructor(x, y, directionX, directionY, size, color) {
-        this.x = x;
-        this.y = y;
-        this.directionX = directionX;
-        this.directionY = directionY;
-        this.size = size;
-        this.color = color;
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-        ctx.fillStyle = 'rgba(255, 0, 127, 0.3)';
-        ctx.fill();
-      }
-      update() {
-        if (this.x > canvas.width || this.x < 0) {
-          this.directionX = -this.directionX;
+            // If it's step 3, start loading simulation
+            if(step === 3) {
+                let status = document.getElementById('status-text');
+                setTimeout(() => { status.innerText = "Locating members near you..."; }, 1500);
+                setTimeout(() => { status.innerText = "Syncing private photos..."; }, 3000);
+                setTimeout(() => { nextStep(4, '100%'); }, 4500);
+            }
         }
-        if (this.y > canvas.height || this.y < 0) {
-          this.directionY = -this.directionY;
-        }
-        this.x += this.directionX;
-        this.y += this.directionY;
-        this.draw();
-      }
-    }
-
-    function init() {
-      particlesArray = [];
-      let numberOfParticles = (canvas.height * canvas.width) / 9000;
-      for (let i = 0; i < numberOfParticles; i++) {
-        let size = (Math.random() * 2) + 1;
-        let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
-        let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-        let directionX = (Math.random() * 0.4) - 0.2;
-        let directionY = (Math.random() * 0.4) - 0.2;
-        let color = '#ff007f';
-        particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
-      }
-    }
-
-    function animate() {
-      requestAnimationFrame(animate);
-      ctx.clearRect(0, 0, innerWidth, innerHeight);
-      for (let i = 0; i < particlesArray.length; i++) {
-        particlesArray[i].update();
-      }
-    }
-
-    init();
-    animate();
-
-    window.addEventListener('resize', function() {
-      canvas.width = innerWidth;
-      canvas.height = innerHeight;
-      mouse.radius = ((canvas.height / 120) * (canvas.width / 120));
-      init();
-    });
-    // --- End of animated background script ---
-  </script>
+    </script>
 </body>
 </html>
