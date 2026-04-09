@@ -1,243 +1,168 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="html-root">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Google tag (gtag.js) - SAFE LOAD -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G0BVPQ1ETG"></script>
-    <script>
-        window.addEventListener('DOMContentLoaded', function () {
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){ dataLayer.push(arguments); }
-            gtag('js', new Date());
-            gtag('config', 'G-G0BVPQ1ETG');
-        });
-    </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Private Connections | Exclusive Access</title>
+<title>Meet People Near You Tonight</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+<meta name="description" content="Discover people near your location and start chatting today.">
 
-    <style>
-        :root {
-            --primary: #ff0050;
-            --secondary: #6e00ff;
-            --bg: #0a0a0a;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --text: #ffffff;
-        }
+<style>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+/* [v-cloak] previne que os {{ }} do Vue apareçam antes da página carregar */
+[v-cloak] { display: none; }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at top right, #1a0a1f, #0a0a0a);
-            color: var(--text);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+body{
+font-family:Arial;
+margin:0;
+background:#0f172a;
+color:white;
+text-align:center;
+}
 
-        .container {
-            width: 100%;
-            max-width: 450px;
-            padding: 20px;
-            text-align: center;
-        }
+.hero{
+padding:100px 20px;
+}
 
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 30px 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
+.cta{
+background:#00BFFF;
+padding:15px 30px;
+border-radius:8px;
+display:inline-block;
+color:white;
+text-decoration:none;
+font-weight:bold;
+margin-top:20px;
+}
 
-        .profile-header img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 3px solid var(--primary);
-            padding: 3px;
-            margin-bottom: 15px;
-            box-shadow: 0 0 20px rgba(255, 0, 80, 0.3);
-            object-fit: cover;
-        }
+.online{
+margin-top:20px;
+font-size:18px;
+color:#38bdf8;
+}
 
-        h1 { font-size: 1.8rem; margin-bottom: 10px; font-weight: 700; letter-spacing: -1px; }
-        p { color: #ccc; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; }
+</style>
 
-        .step { display: none; }
-        .step.active { display: block; animation: fadeIn 0.5s ease; }
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js" defer></script>
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .btn-option {
-            display: block;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            padding: 16px;
-            margin-bottom: 12px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: 0.3s;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .btn-option:hover {
-            background: var(--primary);
-            border-color: var(--primary);
-            transform: scale(1.02);
-        }
-
-        .btn-final {
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            border: none;
-            box-shadow: 0 10px 20px rgba(255, 0, 80, 0.3);
-            margin-top: 15px;
-        }
-
-        .progress-container {
-            width: 100%;
-            height: 6px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-
-        .progress-bar {
-            width: 33%;
-            height: 100%;
-            background: var(--primary);
-            border-radius: 10px;
-            transition: 0.4s;
-        }
-
-        .loader {
-            border: 4px solid rgba(255,255,255,0.1);
-            border-left-color: var(--primary);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        footer {
-            margin-top: 30px;
-            font-size: 0.7rem;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .online-now {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 0.8rem;
-            color: #4caf50;
-            margin-bottom: 15px;
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            background: #4caf50;
-            border-radius: 50%;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.3; }
-            100% { opacity: 1; }
-        }
-    </style>
 </head>
 
 <body>
 
-<div class="container">
-    <div class="card">
-        <div class="profile-header">
-            <img src="https://github.com/aprivateinvite/OffLimitsFun/blob/main/perfil.jpeg?raw=true" alt="VIP Access">
-            <div class="online-now">
-                <span class="dot"></span> 1,248 users online now
-            </div>
+<div id="app" v-cloak>
+
+    <section class="hero">
+
+        <h1>{{ t.headline.replace('{greet}', greet).replace('{city}', city) }}</h1>
+
+        <p>{{ t.subtext.replace('{city}', city) }}</p>
+
+        <div class="online">
+            <span>{{ onlineCount }}</span> {{ t.onlineText }}
         </div>
 
-        <div class="progress-container">
-            <div class="progress-bar" id="progress"></div>
-        </div>
+        <a href="https://bggcgce.datesoffers.com/s/59cd6ef16fd92" class="cta">{{ t.cta }}</a>
 
-        <div class="step active" id="step1">
-            <h1>Are you at least 18?</h1>
-            <p>This platform contains adult content and real profiles. Please confirm your age to proceed.</p>
-            <button class="btn-option" onclick="nextStep(2, '66%')">Yes, I am 18+</button>
-            <button class="btn-option" onclick="alert('Sorry, you must be 18 or older to enter.')">No</button>
-        </div>
+    </section>
 
-        <div class="step" id="step2">
-            <h1>What are you looking for?</h1>
-            <p>Customize your experience so we can find the best matches for you.</p>
-            <button class="btn-option" onclick="nextStep(3, '100%')">Casual Hookups</button>
-            <button class="btn-option" onclick="nextStep(3, '100%')">Serious Dating</button>
-            <button class="btn-option" onclick="nextStep(3, '100%')">Private Video Chat</button>
-        </div>
-
-        <div class="step" id="step3">
-            <h1>Analyzing Profiles...</h1>
-            <p>We are checking for available members in your area.</p>
-            <div class="loader"></div>
-            <div id="status-text" style="font-size:0.8rem;color:var(--primary);font-weight:bold;">
-                Checking database...
-            </div>
-        </div>
-
-        <div class="step" id="step4">
-            <h1 style="color:#4caf50;">Access Granted!</h1>
-            <p>We found <b>14 active profiles</b> matching your criteria.</p>
-            <a href="https://bggcgce.datesoffers.com/s/59cd6ef16fd92" class="btn-option btn-final">
-                VIEW PROFILES & JOIN NOW
-            </a>
-            <span style="font-size:0.7rem;color:#888;">Fast registration: less than 30 seconds.</span>
-        </div>
-    </div>
-
-    <footer>
-        Safe & Encrypted Environment &copy; 2025
-    </footer>
 </div>
 
 <script>
-    function nextStep(step, progressWidth) {
-        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-        document.getElementById('step' + step).classList.add('active');
-        document.getElementById('progress').style.width = progressWidth;
+document.addEventListener('DOMContentLoaded', () => {
+    const { createApp, ref, computed, onMounted } = Vue;
 
-        if (step === 3) {
-            let status = document.getElementById('status-text');
-            setTimeout(() => { status.innerText = "Locating members near you..."; }, 1500);
-            setTimeout(() => { status.innerText = "Syncing private photos..."; }, 3000);
-            setTimeout(() => { nextStep(4, '100%'); }, 4500);
+    // Dicionário de Traduções
+    const translations = {
+        en: {
+            fallbackCity: "your area",
+            greetings: { morning: "Good morning", afternoon: "Good afternoon", evening: "Good evening" },
+            headline: "{greet}! People in {city} are looking to meet tonight",
+            subtext: "New profiles from {city} joined in the last few minutes",
+            onlineText: "people online right now",
+            cta: "See Matches"
+        },
+        pt: {
+            fallbackCity: "sua região",
+            greetings: { morning: "Bom dia", afternoon: "Boa tarde", evening: "Boa noite" },
+            headline: "{greet}! Pessoas em {city} estão querendo um encontro hoje à noite",
+            subtext: "Novos perfis de {city} entraram nos últimos minutos",
+            onlineText: "pessoas online agora",
+            cta: "Ver Perfis"
         }
-    }
+    };
+
+    const app = createApp({
+        setup() {
+            // Estado Reativo
+            const lang = ref("en");
+            const city = ref("your area");
+            const timeOfDay = ref("evening");
+            const onlineCount = ref(0);
+
+            // Computed Properties para atualizar o texto automaticamente caso o idioma mude
+            const t = computed(() => translations[lang.value] || translations['en']);
+            
+            const greet = computed(() => {
+                return t.value.greetings[timeOfDay.value];
+            });
+
+            // Funções de Inicialização
+            const initLang = () => {
+                const navLang = navigator.language.slice(0, 2);
+                if (translations[navLang]) {
+                    lang.value = navLang;
+                    document.documentElement.lang = navLang;
+                    // Se a cidade ainda for o padrão em inglês, ajusta para o idioma local
+                    if(city.value === "your area") {
+                        city.value = translations[navLang].fallbackCity;
+                    }
+                }
+            };
+
+            const initGeo = async () => {
+                try {
+                    const res = await fetch('https://get.geojs.io/v1/ip/geo.json');
+                    const data = await res.json();
+                    
+                    if (data.city) {
+                        city.value = data.city;
+                    } else if (data.region) {
+                        city.value = data.region;
+                    }
+                } catch (e) {
+                    console.log("Geo fallback failed.");
+                }
+            };
+
+            const initTime = () => {
+                const hour = new Date().getHours();
+                if (hour < 12) timeOfDay.value = "morning";
+                else if (hour < 18) timeOfDay.value = "afternoon";
+                else timeOfDay.value = "evening";
+            };
+
+            const initOnlineCount = () => {
+                const min = 120;
+                const max = 350;
+                onlineCount.value = Math.floor(Math.random() * (max - min) + min);
+            };
+
+            // Dispara as funções quando a página carrega
+            onMounted(() => {
+                initLang();
+                initGeo();
+                initTime();
+                initOnlineCount();
+            });
+
+            return { city, t, greet, onlineCount };
+        }
+    });
+
+    app.mount('#app');
+});
 </script>
 
 </body>
